@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionamento Linkvertise</title>
+</head>
+<body>
+
+    
+    <h2>Clique para acessar o conteúdo:</h2>
+    <a id="myLink" href="#">Acessar</a>
+
+    <script src="https://publisher.linkvertise.com/cdn/linkvertise.js"></script>
+    <script>
+        
+        linkvertise(1239053, {whitelist: [], blacklist: []});
+        
+        var generatedLink = "https://link-to.net/123456/AxrHHOoAykyc0Uy2";
+        document.getElementById("myLink").href = generatedLink;  // Atribuindo o link ao botão
+    </script>
+    
+</body>
+</html>
