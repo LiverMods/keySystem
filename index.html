@@ -4,21 +4,68 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecionamento Linkvertise</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            font-size: 1.5em;
+        }
+
+        a {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+
+        a:hover {
+            background-color: #45a049;
+        }
+
+        /* Ajuste para telas pequenas (celular e tablet) */
+        @media (max-width: 600px) {
+            h2 {
+                font-size: 1.2em;
+            }
+
+            a {
+                font-size: 1em;
+                padding: 12px 20px;
+            }
+        }
+    </style>
 </head>
 <body>
 
-    
-    <h2>Clique para acessar o conteúdo:</h2>
+    <h2>Clique abaixo para acessar seu conteúdo:</h2>
     <a id="myLink" href="#">Acessar</a>
 
     <script src="https://publisher.linkvertise.com/cdn/linkvertise.js"></script>
     <script>
-        
-        linkvertise(1239053, {whitelist: [], blacklist: []});
-        
-        var generatedLink = "https://link-to.net/123456/AxrHHOoAykyc0Uy2";
-        document.getElementById("myLink").href = generatedLink;  // Atribuindo o link ao botão
+        // Captura o parâmetro 'key' da URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const key = urlParams.get('key'); // Obtém a chave enviada pela URL
+
+        if (key) {
+            console.log("Key recebida: " + key);
+            // Aqui você pode manipular a chave para fazer algo específico com ela
+            // Exemplo: Usar a chave para redirecionar para um link exclusivo
+            const generatedLink = "https://link-to.net/123456/" + key; // Usando o key na URL
+            document.getElementById("myLink").href = generatedLink;  // Atribui o link ao botão
+            linkvertise(1239053, {whitelist: [], blacklist: []});  // Redirecionamento Linkvertise
+        } else {
+            console.log("Nenhuma key fornecida.");
+        }
     </script>
-    
+
 </body>
 </html>
