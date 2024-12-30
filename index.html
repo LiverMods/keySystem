@@ -59,12 +59,22 @@
             console.log("Key recebida: " + key);
             // Aqui você pode manipular a chave para fazer algo específico com ela
             // Exemplo: Usar a chave para redirecionar para um link exclusivo
-            const generatedLink = "https://link-to.net/123456/" + key; // Usando o key na URL
+            const generatedLink = "https://link-to.net/779098/" + key; // Usando o key na URL
             document.getElementById("myLink").href = generatedLink;  // Atribui o link ao botão
-            linkvertise(1239053, {whitelist: [], blacklist: []});  // Redirecionamento Linkvertise
+            linkvertise(779098, {whitelist: [], blacklist: []});  // Redirecionamento Linkvertise
         } else {
             console.log("Nenhuma key fornecida.");
         }
+
+        // Ação de clique no botão para redirecionar
+        document.getElementById("myLink").addEventListener("click", function(event) {
+            if (key) {
+                const finalLink = "https://livermods.github.io/keySystem/?key=" + key;  // Adiciona a chave na URL
+                window.location.href = finalLink;  // Redireciona para o link gerado com o parâmetro 'key'
+            } else {
+                alert("Key não encontrada!");
+            }
+        });
     </script>
 
 </body>
