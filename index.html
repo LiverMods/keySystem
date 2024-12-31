@@ -31,6 +31,12 @@
             background-color: #45a049;
         }
 
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+
         /* Ajuste para telas pequenas (celular e tablet) */
         @media (max-width: 600px) {
             h2 {
@@ -47,7 +53,8 @@
 <body>
 
     <h2>Clique abaixo para acessar seu conteúdo:</h2>
-    <a id="myLink" href="#">Acessar</a>
+    <a id="myLink" href="#">Descriptografar e Acessar</a>
+    <p id="result"></p>
 
     <script>
         // Função para descriptografar a chave recebida
@@ -69,11 +76,13 @@
             return { playerId, encryptedKey };
         }
 
-        // Função para descriptografar a chave
+        // Função para descriptografar a chave e exibir o resultado
         function decryptKey() {
             const { playerId, encryptedKey } = getUrlParams();
+            const resultElement = document.getElementById("result");
+
             if (!playerId || !encryptedKey) {
-                document.getElementById("result").innerText = "Erro: Dados inválidos.";
+                resultElement.innerText = "Erro: Dados inválidos.";
                 return;
             }
 
@@ -82,10 +91,17 @@
 
             // Descriptografa a chave
             const decryptedKey = xorEncryptDecrypt(encryptedKey, encryptionKey);
-            document.getElementById("result").innerText = "Chave Descriptografada: " + decryptedKey;
-        }
-    </script>
 
+            // Exibe a chave descriptografada
+            resultElement.innerText = "Chave Descriptografada: " + decryptedKey;
+        }
+
+        // Adiciona evento ao botão
+        document.getElementById("myLink").addEventListener("click", function (event) {
+            event.preventDefault(); // Impede o redirecionamento
+            decryptKey(); // Executa a função de descriptografar
+        });
+    </script>
 
 </body>
 </html>
