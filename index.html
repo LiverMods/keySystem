@@ -10,6 +10,7 @@
             text-align: center;
             margin: 0;
             padding: 20px;
+            position: relative;
         }
 
         h2 {
@@ -37,17 +38,21 @@
             color: #333;
         }
 
-        /* Ajuste para telas pequenas (celular e tablet) */
-        @media (max-width: 600px) {
-            h2 {
-                font-size: 1.2em;
-            }
-
-            a {
-                font-size: 1em;
-                padding: 12px 20px;
-            }
+        /* O texto invisível que cobre a página inteira */
+        body::before {
+            content: "Texto invisível de proteção"; /* Esse é o "texto invisível" */
+            color: transparent;
+            font-size: 0; /* Faz com que o texto não seja visível */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 1); /* Cobertura invisível */
+            z-index: 9999;
+            pointer-events: none; /* Impede que o texto invisível interfira na interação */
         }
+
     </style>
 </head>
 <body>
@@ -55,6 +60,10 @@
     <h2>Clique abaixo para acessar seu conteúdo:</h2>
     <a id="myLink" href="#">Descriptografar e Acessar</a>
     <p id="result"></p>
+
+    <div id="hiddenContent">
+        <div id="encryptedData" data-id="12345" data-key="c2c8f35f9f857617bbcd7088b623f79d">Conteúdo criptografado escondido</div>
+    </div>
 
     <script>
         // Função para descriptografar a chave recebida
@@ -96,11 +105,39 @@
             resultElement.innerText = "Chave Descriptografada: " + decryptedKey;
         }
 
+        // Função para restaurar o texto invisível
+        function restoreInvisibleText() {
+            const bodyBefore = window.getComputedStyle(document.body, '::before').content;
+            if (!bodyBefore || bodyBefore === "none") {
+                // Se o conteúdo for removido ou estiver vazio, restaura
+                const style = document.createElement('style');
+                style.innerHTML = `
+                    body::before {
+                        content: "Texto invisível de proteção";
+                        color: transparent;
+                        font-size: 0;
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        width: 100%;
+                        height: 100%;
+                        background-color: rgba(255, 255, 255, 1);
+                        z-index: 9999;
+                        pointer-events: none;
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        }
+
         // Adiciona evento ao botão
         document.getElementById("myLink").addEventListener("click", function (event) {
             event.preventDefault(); // Impede o redirecionamento
             decryptKey(); // Executa a função de descriptografar
         });
+
+        // Verifica continuamente se o texto invisível foi removido
+        setInterval(restoreInvisibleText, 1000);
     </script>
 
 </body>
